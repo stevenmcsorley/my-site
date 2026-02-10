@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atlas x Co-Pilots</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --surface: #121722;
+      --surface-2: #161d2b;
+      --text: #eef2ff;
+      --muted: #9aa4b2;
+      --accent: #70f3c4;
+      --accent-2: #7aa2ff;
+      --glow: rgba(112, 243, 196, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", system-ui, sans-serif;
+      background: radial-gradient(1200px 800px at 10% 10%, rgba(112, 243, 196, 0.15), transparent 60%),
+                  radial-gradient(1000px 700px at 90% 20%, rgba(122, 162, 255, 0.18), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 8vw;
+    }
+
+    .logo {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      gap: 20px;
+      font-size: 0.95rem;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 40px 8vw 80px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-family: "Fraunces", serif;
+      font-size: clamp(2.8rem, 5vw, 4.6rem);
+      line-height: 1.05;
+      margin: 0 0 20px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 26px;
+    }
+
+    .cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 26px;
+      border-radius: 999px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      color: #0b0d12;
+      box-shadow: 0 10px 30px rgba(112, 243, 196, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(112, 243, 196, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, rgba(18, 23, 34, 0.9), rgba(20, 28, 40, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 28px;
+      border-radius: 24px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card:before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, var(--glow), transparent 70%);
+      top: -80px;
+      right: -60px;
+    }
+
+    .hero-card h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .hero-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-card li {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--glow);
+    }
+
+    .section {
+      padding: 30px 8vw 60px;
+    }
+
+    .section h2 {
+      font-family: "Fraunces", serif;
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      margin-bottom: 12px;
+    }
+
+    .section p {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    .grid {
+      margin-top: 28px;
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .card {
+      padding: 20px;
+      background: var(--surface);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: transform 0.2s ease, border 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border: 1px solid rgba(112, 243, 196, 0.3);
+    }
+
+    .card h4 {
+      margin: 0 0 8px;
+    }
+
+    .card span {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .timeline {
+      margin-top: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .timeline-step {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--surface-2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 40px 8vw 60px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Atlas x Co-Pilots</div>
+    <nav class="nav">
+      <a href="#overview">Overview</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#flow">Collaboration</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="overview">
+    <div>
+      <h1>Human-led. Agent-accelerated. Beautifully coordinated.</h1>
+      <p>
+        A showcase site for your multi-agent Slack collaboration stack. Atlas handles deep work and tool execution while
+        orchestrator bots keep the momentum, context, and clarity moving forward.
+      </p>
+      <div class="cta">
+        <button class="btn btn-primary">Launch the Demo</button>
+        <button class="btn btn-secondary">View the Playbook</button>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>Live System Snapshot</h3>
+      <ul>
+        <li><span class="dot"></span> Slack-native: channel-first workflows</li>
+        <li><span class="dot"></span> Obsidian artifacts + structured memory</li>
+        <li><span class="dot"></span> GitHub Pages deploys in one shot</li>
+        <li><span class="dot"></span> Gmail + Calendar with approvals</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="capabilities">
+    <h2>Designed for decisive teams</h2>
+    <p>
+      Every interaction should deliver momentum. This stack prioritizes clarity, guardrails, and fast delivery without
+      drowning you in noise.
+    </p>
+    <div class="grid">
+      <div class="card">
+        <h4>Agent Memory</h4>
+        <span>Context stays in the right channel. No cross-talk, no drift.</span>
+      </div>
+      <div class="card">
+        <h4>Tool Confidence</h4>
+        <span>Explicit attachments, signature checks, and runtime toggles keep actions safe.</span>
+      </div>
+      <div class="card">
+        <h4>Rapid Publishing</h4>
+        <span>Create, update, and deploy project sites without the manual overhead.</span>
+      </div>
+      <div class="card">
+        <h4>Research Velocity</h4>
+        <span>Pull sources, summarize, and drop decisions straight into the vault.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="flow">
+    <h2>Collaboration flow</h2>
+    <p>How your agents work together to move from idea to shipped output.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-step">01</div>
+        <div>
+          <strong>Signal</strong>
+          <div class="muted">A prompt starts the session and anchors the intent.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-step">02</div>
+        <div>
+          <strong>Orchestrate</strong>
+          <div class="muted">Companion agents line up tasks, research, and options.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-step">03</div>
+        <div>
+          <strong>Execute</strong>
+          <div class="muted">Atlas runs tools, generates artifacts, and ships results.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-step">04</div>
+        <div>
+          <strong>Review</strong>
+          <div class="muted">Human approval gates ensure the right output hits the world.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>Built for high‑trust automation and calm coordination.</div>
+    <div>Deploys via GitHub Pages. Updated Feb 2026.</div>
+  </footer>
+</body>
+</html>
